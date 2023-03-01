@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <link th:href="@{/styles/main.css}" rel="stylesheet" />
+    <title>CMPT 354 easy notes</title>
+
+</head>
+
+
+<body>
+<div align="center">
+
+    <h1><p> Home Page </p></h1>
+    <p><a th:href="@{/profilePage}">Profile</a></p>
+    <p><a th:href="@{/upload_file}">Upload File</a></p>
+    <p><a th:href="@{/files}">Files</a></p>
+    <p><a th:href="@{/library}">My Library</a></p>
+    <p><a th:href="@{/posts}">Discussion</a></p>
+
+</div>
+</body>
+</html>

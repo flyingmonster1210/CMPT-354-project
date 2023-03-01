@@ -1,0 +1,114 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link th:href="@{/styles/main.css}" rel="stylesheet" />
+    <title>CMPT 354 easy notes</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+<body>
+
+<div id="addPost"  th:fragment="addPost">
+    <button type="button" onclick="addPost()">Create a post</button>
+</div>
+
+
+<div align="center" id="postList"  th:fragment="postList">
+
+    <h1>
+        <p> Discussion </p>
+    </h1>
+
+    <div th:each="post:${postList}" id="Mypost" th:onclick="showPost([[${post.ID}]],[[${post.pName}]])">
+        [[${post.pName}]]
+    </div>
+
+</div>
+
+<p> <!--/* A button back to the home page */-->
+<form action="/backToHomePage" th:action="@{/backToHomePage}">
+    <button type="submit">Back to home page</button>
+</form>
+</p><br/>
+
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <!-- 模态框（Modal）标题-->
+                    Creating a post
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="post" th:action="@{/addPost}" method="post"  >
+                    <div class="form-group col-md-12"><label>Title:</label>
+                        <textarea  id="title" class="form-control" name="title"></textarea>
+                    </div>
+                    <div class="form-group col-md-12"><label>Content:</label>
+                        <textarea  id="content" class="form-control" name="content" style="resize:none;width:540px;height:200px;" ></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="create()">
+                            publish
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+</body>
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" ></script>-->
+<script type="text/javascript">
+    $(function(){
+        $('#myModal').modal("hide");
+    });
+
+    function addPost(){
+        //alert("addPost")
+        $('#myModal').modal('show');
+    }
+
+
+    function create() {
+        let title=  $('#title').val()
+        let content=  $('#content').val()
+        console.log(title,' ',content)
+
+        $.ajax({
+            type: "get",
+            url: "http://localhost:8080/addPost",
+            data: { "title": title,"content": content },
+            dataType: "json",
+            success: function (data) {
+                console.log("成功")
+            }
+        });
+        $('#myModal').modal("hide");
+    }
+
+    function showPost(id, title){
+        //alert(id+" "+title)
+        window.location.href="http://localhost:8080/showPost?id="+id+"&title="+title
+        $('#myModal').modal("hide");
+
+    }
+</script>
+
+</html>

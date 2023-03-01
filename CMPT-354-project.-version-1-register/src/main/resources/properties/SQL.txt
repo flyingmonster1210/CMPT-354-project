@@ -1,0 +1,206 @@
+refer to: https://www.jianshu.com/p/d7b9c468f20d
+
+
+
+in Navicat's query:
+
+CREATE DATABASE cmpt354Project;
+USE cmpt354Project;
+
+----------------------------------------------------------------------------
+Project SQl (used to create tables, and to insert sample values):
+
+use cmpt354project;
+
+DROP TABLE if EXISTS `user`;
+create table `user`
+(
+	ID					INTEGER(10) 		NOT NULL UNIQUE auto_increment,
+	username		VARCHAR(30)			NOT NULL UNIQUE,
+	email				VARCHAR(100)		NOT NULL UNIQUE,
+	`password`	VARCHAR(20)			NOT NULL,
+	`level`			INTEGER(10)			NOT NULL DEFAULT(0),
+	PRIMARY KEY(ID)
+)engine=INNODB  default charset=gbk;
+
+DROP TABLE if EXISTS `Document`;
+create table Document
+(
+	ID 					INTEGER(10) 		NOT NULL UNIQUE auto_increment,
+	userID	 		INTEGER(10) 		NOT NULL,
+	course	 		VARCHAR(20) 		NOT NULL,
+	fileName		VARCHAR(50)			DEFAULT 'New File',
+	type				VARCHAR(4)			NOT NULL,
+	`data`			MEDIUMBLOB			NOT NULL,
+	PRIMARY KEY(ID, userID),
+	FOREIGN KEY(userID) REFERENCES `user`(ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+)engine=INNODB  default charset=gbk;
+
+DROP TABLE if EXISTS `Library`;
+create table Library
+(
+	ID 				INTEGER(10) 		NOT NULL UNIQUE auto_increment,
+	userID	 	INTEGER(10) 		NOT NULL,
+	`name`		VARCHAR(30)			NOT NULL DEFAULT 'new library',
+	PRIMARY KEY(ID, userID),
+	FOREIGN KEY(userID) REFERENCES `user`(ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+)engine=INNODB  default charset=gbk;
+
+DROP TABLE if EXISTS `Post`;
+create table Post
+(
+	ID 				INTEGER(10) 		NOT NULL UNIQUE auto_increment,
+	userID	 	INTEGER(10) 		NOT NULL,
+	pName 		VARCHAR(100)		NOT NULL,
+	PRIMARY KEY(ID, userID),
+	FOREIGN KEY(userID) REFERENCES `user`(ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+)engine=INNODB  default charset=gbk;
+
+DROP TABLE if EXISTS `PostMessage`;
+create table PostMessage
+(
+	postID			INTEGER(10) 	NOT NULL,
+	userID 			INTEGER(10) 	NOT NULL,
+	message 		VARCHAR(500) NOT NULL,
+	time_stamp 	TIMESTAMP 		NOT NULL,
+	author 			VARCHAR(30)		NOT NULL,
+	PRIMARY KEY(userID, postID, massage),
+	FOREIGN KEY(postID) REFERENCES Post(ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	FOREIGN KEY(userID) REFERENCES `user`(ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+);
+
+DROP TABLE if EXISTS `CollectPost`;
+create table CollectPost
+(
+	postID		INTEGER(10)			NOT NULL,
+	userID 		INTEGER(10) 		NOT NULL,
+	libraryID INTEGER(10)			NOT NULL,
+	PRIMARY KEY(userID, postID, libraryID),
+	FOREIGN KEY(postID) REFERENCES Post(ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	FOREIGN KEY(userID) REFERENCES `user`(ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	FOREIGN KEY(libraryID) REFERENCES Library(ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+);
+
+DROP TABLE if EXISTS `CollectDoc`;
+create table CollectDoc
+(
+	docID			INTEGER(10)			NOT NULL,
+	userID 		INTEGER(10) 		NOT NULL,
+	libraryID INTEGER(10)			NOT NULL,
+	PRIMARY KEY(userID, docID, libraryID),
+	FOREIGN KEY(docID) REFERENCES Document(ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	FOREIGN KEY(userID) REFERENCES `user`(ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	FOREIGN KEY(libraryID) REFERENCES Library(ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+);
+
+INSERT INTO `user`
+VALUES (1004175218, 'San Zhang', 'afjafj@gmail.com', 'Juj511956', 0);
+INSERT INTO `user`
+VALUES (1004176378, 'Si Li', '5623478591@qq.com', 'Hok47862', 0);
+INSERT INTO `user`
+VALUES (1004173716, 'Wu Wang', 'fangsi@163.com', '$ww488156', 0);
+INSERT INTO `user`
+VALUES (1004176953, 'Tom Mark', 'mark478@gmail.com', '123456', 0);
+INSERT INTO `user`
+VALUES (1004171432, 'Li Zhong', 'yuanshen@gmail.com', 'Juj511956', 1);
+INSERT INTO `user`
+VALUES (1004183965, 'Tim Docan', 'Tim347@gmail.com', 'Tdo478956', 0);
+INSERT INTO `user`
+VALUES (1004184752, 'James May', 'James333@gmail.com', 'May5587356', 0);
+INSERT INTO `user` (ID, username, email, `password`)
+VALUES (1004189630, 'Hello Men', 'Hello@gmail.com', 'Hel99463136');
+INSERT INTO `user` (username, email, `password`)
+VALUES ('Yuhan He', '2826629731@qq.com', 'Hyh138123');
+
+INSERT INTO Document
+VALUES (100002, 1004173716, 'CMPT225', 'binary search tree', 'pdf', 'NULL');
+INSERT INTO Document
+VALUES (100001, 1004183965, 'MACM316', 'Newton iteration', 'txt', 'NULL');
+INSERT INTO Document
+VALUES (100003, 1004189630, 'PHYS140', 'acceleration', 'pdf', 'NULL');
+INSERT INTO Document
+VALUES (100005, 1004173716, 'CMPT225', 'file', 'pdf', 'NULL');
+INSERT INTO Document
+VALUES (100009, 1004175218, 'MATH251', 'vector', 'pdf', 'NULL');
+
+INSERT INTO Library (ID,userID)
+VALUES (320155, 1004173716);
+INSERT INTO Library
+VALUES (320187, 1004171432, 'Note');
+INSERT INTO Library
+VALUES (320156, 1004173716, 'Lecture');
+INSERT INTO Library
+VALUES (320137, 1004183965, 'Assignment');
+INSERT INTO Library
+VALUES (320129, 1004189630, 'Exam');
+INSERT INTO Library
+VALUES (320274, 1004175218, 'Quiz');
+
+INSERT INTO Post
+VALUES (400245893, 1004171432, 'question1 assignment2');
+INSERT INTO Post
+VALUES (400224786, 1004173716, 'wrong in lecture');
+INSERT INTO Post
+VALUES (400236547, 1004189630, 'Newton first low');
+INSERT INTO Post
+VALUES (400232478, 1004171432, 'Assignment typo');
+INSERT INTO Post
+VALUES (400252143, 1004176378, 'Lab time');
+INSERT INTO Post
+VALUES (400278561, 1004183965, 'Lecture video');
+
+INSERT INTO PostMessage
+VALUES (400224786, 1004173716, 'There should no underline', UTC_TIMESTAMP(), 'Wang Wu');
+INSERT INTO PostMessage
+VALUES (400236547, 1004171432, 'I do not know how to understand it', UTC_TIMESTAMP(), 'Zhong Li');
+INSERT INTO PostMessage
+VALUES (400252143, 1004183965, 'The time is unsuitable', UTC_TIMESTAMP(), 'Tim');
+INSERT INTO PostMessage
+VALUES (400236547, 1004173716, 'Is it possible to realize it', UTC_TIMESTAMP(), 'Wang Wu');
+INSERT INTO PostMessage
+VALUES (400245893, 1004173716, 'I give up it', UTC_TIMESTAMP(), 'Wang Wu');
+
+INSERT INTO CollectDoc
+VALUES (100002, 1004173716, 320155);
+INSERT INTO CollectDoc
+VALUES (100003, 1004183965, 320137);
+INSERT INTO CollectDoc
+VALUES (100005, 1004175218, 320274);
+INSERT INTO CollectDoc
+VALUES (100005, 1004189630, 320129);
+INSERT INTO CollectDoc
+VALUES (100009, 1004175218, 320274);
+
+INSERT INTO CollectPost
+VALUES (400224786, 1004173716, 320155);
+INSERT INTO CollectPost
+VALUES (400252143, 1004183965, 320137);
+INSERT INTO CollectPost
+VALUES (400236547, 1004175218, 320274);
+INSERT INTO CollectPost
+VALUES (400232478, 1004189630, 320129);
+INSERT INTO CollectPost
+VALUES (400245893, 1004175218, 320274);
+

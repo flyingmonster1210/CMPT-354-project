@@ -1,0 +1,124 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link th:href="@{/styles/main.css}" rel="stylesheet" />
+    <title>CMPT 354 easy notes</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+
+<body>
+    <div align="center" id="profile">
+        <h1><p> Profile </p></h1>
+        <p>Name:
+            <tr th:each="p :${user.username}">
+                <td th:utext="${p}">txt</td>
+            </tr>
+        </p>
+        <p>Email:
+            <tr th:each="p :${user.email}">
+                <td th:utext="${p}">txt</td>
+            </tr>
+        </p>
+        <p>Password:
+            <tr id="password" th:each="p :${user.password}">
+                <td th:utext="${p}">txt</td>
+            </tr>
+        </p>
+
+        <button type="button" th:onclick="edit()">Change Password</button>
+
+        <p><a th:href="@{/sign_in}">Log out</a></p>
+    </div>
+
+    <p> <!--/* A button back to the home page */-->
+    <form action="/backToHomePage" th:action="@{/backToHomePage}">
+        <button type="submit">Back to home page</button>
+    </form>
+    </p><br/>
+
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <!-- 模态框（Modal）标题-->
+                        Edit Information:
+                    </h4>
+                </div>
+                <div class="modal-body">
+<!--                    <div class="form-group col-md-12"><label>Title:</label>-->
+<!--                        <textarea  id="title" class="form-control" name="title"></textarea>-->
+<!--                    </div>-->
+                    <div class="form-group col-md-12"><label>Enter new password:</label>
+                        <textarea  id="content" class="form-control" name="content" style="resize:none;width:240px;height:40px;" ></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="create()">
+                            publish
+                        </button>
+                    </div>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+
+
+
+</body>
+
+<script type="text/javascript">
+    $(function(){
+        $('#myModal1').modal("hide");
+    });
+
+    function edit(){
+        //alert("addPost")
+         $('#myModal1').modal('show');
+    }
+
+
+    function create() {
+        // let title=  $('#title').val()
+        let content = $('#content').val()
+        let password = $('#password').val()
+        console.log(content)
+        var min = 5; //at least 5 characters
+
+        if (content.length < min) {
+            alert('At least ' + min + ' characters')
+        } else {
+            window.location.href = "http://localhost:8080/editPassword?content=" + content
+            $('#myModal1').modal("hide");
+        }
+
+        // $.ajax({
+        //     type: "get",
+        //     url: "http://localhost:8080/addPost",
+        //     data: { "title": title,"content": content },
+        //     dataType: "json",
+        //     success: function (data) {
+        //         console.log("成功")
+        //     }
+        // });
+
+    }
+
+</script>
+
+</html>

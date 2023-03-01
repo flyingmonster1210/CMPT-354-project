@@ -1,0 +1,9 @@
+server:
+  port: 8080
+spring:
+  resources:
+    static-locations: file:C://Users/18979/IdeaProjects/CMPT-354-project.-version-1/localStorage
+  mvc:
+    static-path-pattern: /**
+
+    #http://localhost:8080/a.png

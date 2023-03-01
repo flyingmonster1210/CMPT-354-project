@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <link th:href="@{/styles/main.css}" rel="stylesheet" />
+    <title>CMPT 354 easy notes</title>
+
+</head>
+
+
+<body>
+<div align="center">
+    <h1><p> Sign In </p></h1>
+<!--    <p><img th:src="@{/static/images/leimu.jpeg}"></p>-->
+    <p><img th:src="@{/images/lvxinzhe.jpg}" /></p>
+
+
+    <form id="sign_in" th:action="@{/sign_in}" method="post" >
+        <!--/* Input the info */-->
+        <p th:if="${not status}">Your email or password is not correct please enter again!</p>
+<!--        <span style="font-size: small; color: red; ">This is some text!</span>-->
+        <p>Your email:
+            <textarea rows="1" onfocus="this.value=''"  th:field="*{theUser.email}" placeholder="Enter your email"></textarea>
+        </p>
+        <p>Your password:
+            <textarea rows="1" onfocus="this.value=''"  th:field="*{theUser.password}" placeholder="Enter your password"></textarea>
+        </p>
+        <button type="submit">sign in</button>
+    </form>
+    <p> <!--/* A button back to the home page */-->
+    <form action="/register" th:action="@{/register}">
+        <button type="submit">register</button>
+    </form>
+    </p><br/>
+
+
+</div>
+</body>
+</html>

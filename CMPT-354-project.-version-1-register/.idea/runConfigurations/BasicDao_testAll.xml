@@ -1,0 +1,20 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="BasicDao.testAll" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="cmpt354EasyNote.test" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="ca.cmpt354.easyNote.dao.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="ALTERNATIVE_JRE_PATH" value="azul-13" />
+    <option name="PACKAGE_NAME" value="ca.cmpt354.easyNote.dao" />
+    <option name="MAIN_CLASS_NAME" value="ca.cmpt354.easyNote.dao.BasicDao" />
+    <option name="METHOD_NAME" value="testAll" />
+    <option name="TEST_OBJECT" value="method" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

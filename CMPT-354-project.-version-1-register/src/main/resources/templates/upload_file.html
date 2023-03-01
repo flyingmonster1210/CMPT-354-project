@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h1>file upload</h1>
+<form method="post" action="/upload" enctype="multipart/form-data" th:object="${fileText}">
+
+    <p th:if="${not status}">please select the course name!</p>
+    <input type="file" name="file" /><br/><br/>
+    <input type="submit" value="Submit" />
+
+    <select name="departmentCode" class="b_select">
+        <option value="">Please Choose The Course</option>
+        <option th:each="item:${optList}"
+                th:value="${item}"
+                th:text="${item}" />
+    </select>
+
+</form>
+
+<p> <!--/* A button back to the home page */-->
+<form action="/backToHomePage" th:action="@{/backToHomePage}">
+    <button type="submit">Back to home page</button>
+</form>
+</p><br/>
+
+</body>
+</html>

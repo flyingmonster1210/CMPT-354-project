@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <link th:href="@{/styles/main.css}" rel="stylesheet" />
+    <title>CMPT 354 easy notes</title>
+
+</head>
+
+
+<body>
+<div align="center">
+    <!--/* Print the page id */-->
+    <h1><p> Register </p></h1>
+    <p><img th:src="@{/images/leimu.jpeg}" /></p>
+
+    <!--/* Display the process and the word */-->
+    <form id="register" th:action="@{/register}" method="post">
+        <p th:if="${status}">Your email or password is already exist, please enter again!</p>
+        <!--/* Input the info */-->
+        <p>Your name:
+            <textarea rows="1" onfocus="this.value=''" th:field="*{newUser.username}" placeholder="Enter your name"></textarea>
+        </p>
+        <p>Your email:
+            <textarea rows="1" onfocus="this.value=''"  th:field="*{newUser.email}" placeholder="Enter your email"></textarea>
+        </p>
+        <p>Your password:
+            <textarea rows="1" onfocus="this.value=''"  th:field="*{newUser.password}" placeholder="Enter your password"></textarea>
+        </p>
+        <button type="submit">register</button>
+    </form>
+
+    <p>
+    <form action="/sign_in" th:action="@{/sign_in}">
+        <button type="submit">already have an account</button>
+    </form>
+    </p>
+
+
+</div>
+</body>
+</html>

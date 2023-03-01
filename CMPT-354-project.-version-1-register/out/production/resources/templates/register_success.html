@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <link th:href="@{/styles/main.css}" rel="stylesheet" />
+    <title>Enroll succeeded</title>
+
+</head>
+
+
+<body>
+<div align="center">
+    <!--/* Print the page id */-->
+    <p><img th:src="@{/images/9527.jpg}" /></p>
+
+    <p>Status:
+        <tr th:each="p :${status}">
+            <td th:utext="${p}">txt</td>
+        </tr>
+    </p>
+
+    <p>ID:
+    <td th:utext="${newUser.ID}">txt</td>
+    </p>
+
+    <p>Name:
+        <tr th:each="p :${newUser.username}">
+            <td th:utext="${p}">txt</td>
+        </tr>
+    </p>
+
+    <p>Email:
+        <tr th:each="p :${newUser.email}">
+            <td th:utext="${p}">txt</td>
+        </tr>
+    </p>
+
+
+
+    <!--/* A button to back to the welcome page */-->
+    <!--    <p><a th:href="@{/welcome}">Back to welcome</a></p>-->
+
+</div>
+</body>
+</html>

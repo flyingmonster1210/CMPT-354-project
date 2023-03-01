@@ -1,0 +1,25 @@
+refer to: https://www.jianshu.com/p/d7b9c468f20d
+
+
+
+in Navicat's query:
+
+CREATE DATABASE cmpt354Project;
+USE cmpt354Project;
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+	ID 					INTEGER 			NOT NULL UNIQUE,
+	username 		VARCHAR(30) 	NOT NULL UNIQUE,
+	email   		VARCHAR(100) 	NOT NULL UNIQUE,
+	`password` 	VARCHAR(20) 	NOT NULL,
+	PRIMARY KEY(ID)
+);
+
+INSERT INTO `user` VALUES (0, 'admin', '123456789@gmail.com', '123456');
+INSERT INTO `user` VALUES (1, 'Tom', 'tom@gmail.com', 'tom');
+INSERT INTO `user` VALUES (2, 'Jerry', 'jerry9@gmail.com', 'jerry');
+INSERT INTO `user` VALUES (3, 'hahaha', 'hahaha@gmail.com', 'hahaha');
+
+
+create user 'cmpt354Developer'@'localhost' identified by '13579';
+GRANT ALL ON cmpt354Project.* to 'cmpt354Developer'@'localhost';
